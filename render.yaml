@@ -1,48 +1,49 @@
-version: 2
-layout: flowchart
-title: "Jornada do Usuário - Rhora.ai"
-nodes:
-  - id: "1"
-    label: "Recebe Ligação da IA"
-    type: "start"
-  
-  - id: "2"
-    label: "Qualificação e Interesse"
-    type: "process"
+version: "1.0"
+graph:
+  name: "Jornada do Usuário - Rhora.ai"
+  type: "flowchart"
+  nodes:
+    - id: "start"
+      label: "Recebe Ligação da IA"
+      type: "start"
+    
+    - id: "qualificacao"
+      label: "Qualificação e Interesse"
+      type: "process"
+    
+    - id: "simulacao"
+      label: "Simulação de Crédito"
+      type: "process"
+    
+    - id: "formalizacao"
+      label: "Formalização e Consentimento"
+      type: "decision"
+    
+    - id: "assinatura"
+      label: "Assinatura Digital"
+      type: "process"
+    
+    - id: "confirmacao"
+      label: "Confirmação e Pós-Venda"
+      type: "end"
 
-  - id: "3"
-    label: "Simulação de Crédito"
-    type: "process"
-
-  - id: "4"
-    label: "Formalização e Consentimento"
-    type: "decision"
-  
-  - id: "5"
-    label: "Assinatura Digital"
-    type: "process"
-
-  - id: "6"
-    label: "Confirmação e Pós-Venda"
-    type: "end"
-
-edges:
-  - from: "1"
-    to: "2"
-    label: "Cliente atende a chamada"
-
-  - from: "2"
-    to: "3"
-    label: "Lead qualificado"
-
-  - from: "3"
-    to: "4"
-    label: "Cliente recebe proposta"
-
-  - from: "4"
-    to: "5"
-    label: "Consentimento dado"
-  
-  - from: "5"
-    to: "6"
-    label: "Contrato assinado"
+  edges:
+    - from: "start"
+      to: "qualificacao"
+      label: "Cliente atende a chamada"
+    
+    - from: "qualificacao"
+      to: "simulacao"
+      label: "Lead qualificado"
+    
+    - from: "simulacao"
+      to: "formalizacao"
+      label: "Cliente recebe proposta"
+    
+    - from: "formalizacao"
+      to: "assinatura"
+      label: "Consentimento dado"
+    
+    - from: "assinatura"
+      to: "confirmacao"
+      label: "Contrato assinado"
