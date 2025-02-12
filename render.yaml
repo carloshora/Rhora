@@ -1,0 +1,104 @@
+architecture:
+  name: Rhora.ai - Automação Inteligente de Crédito Consignado
+  description: >
+    Plataforma de IA para automação de vendas de crédito consignado, substituindo call centers tradicionais com agentes virtuais de voz, qualificação de leads e disparos automatizados de comunicação.
+  components:
+    - name: Entrada de Leads
+      type: Data Source
+      description: >
+        Leads são carregados de uma planilha Google Sheets ou de uma base de dados externa via Webhook.
+      integrations:
+        - Google Sheets API
+        - Webhooks personalizados
+
+    - name: Qualificação de Leads
+      type: AI Processing
+      description: >
+        O sistema filtra os leads que ainda não foram abordados e qualifica os contatos com base no histórico e dados coletados.
+      integrations:
+        - Google Sheets API
+        - OpenAI GPT-4o-mini (para análise de intenção)
+    
+    - name: Ligações Automatizadas
+      type: Voice AI
+      description: >
+        Um agente de voz faz chamadas automatizadas para leads, seguindo um fluxo de atendimento estruturado.
+      integrations:
+        - Vapi.ai API
+        - Webhooks para monitoramento em tempo real
+
+    - name: Análise de Conversas
+      type: AI NLP Processing
+      description: >
+        Após a chamada, a transcrição da conversa é processada e analisada para determinar:
+        - Se o cliente aceitou a proposta.
+        - Qual o valor, taxa e prazo do contrato.
+        - Motivos de recusa (se houver).
+      integrations:
+        - OpenAI GPT-4o-mini
+        - Análise semântica da transcrição da Vapi.ai
+    
+    - name: Atualização de Leads
+      type: Data Management
+      description: >
+        O status dos leads é atualizado automaticamente na base de dados para priorização de contatos.
+      integrations:
+        - Google Sheets API
+        - Banco de dados interno (se aplicável)
+
+    - name: Comunicação Pós-Venda
+      type: Notifications
+      description: >
+        Após o fechamento da venda, o sistema envia comunicações automáticas para o cliente, garantindo a formalização da transação.
+      integrations:
+        - Zoho Mail API (Disparo de e-mails automáticos)
+        - WhatsApp Business API (Mensagem de confirmação)
+
+  workflows:
+    - name: Lead Processing Workflow
+      description: >
+        Fluxo de recebimento, filtragem e qualificação de leads.
+      steps:
+        - Webhook recebe novos leads e os insere no Google Sheets.
+        - Filtro automático identifica leads não contatados.
+        - Leads qualificados são enviados para a fila de chamadas.
+
+    - name: AI Calling & Analysis
+      description: >
+        Fluxo de chamadas automatizadas e análise das interações.
+      steps:
+        - Agente virtual inicia a chamada via Vapi.ai.
+        - Conversa é gravada e transcrita.
+        - OpenAI GPT-4o-mini processa a transcrição e determina ação seguinte (venda ou follow-up).
+
+    - name: Post-Sale Engagement
+      description: >
+        Fluxo de comunicação pós-venda para clientes que fecharam contrato.
+      steps:
+        - Disparo automático de e-mail via Zoho Mail API.
+        - Envio de mensagem de WhatsApp confirmando detalhes da operação.
+        - Atualização do status do lead na base de dados.
+
+  infrastructure:
+    - name: Cloud Hosting
+      provider: AWS
+      services:
+        - EC2 para backend
+        - S3 para armazenamento de logs e gravações
+        - Lambda para automação de eventos
+
+    - name: Database
+      provider: Google Cloud / Firebase
+      type: NoSQL (Firestore)
+      usage: Armazenamento de interações, transcrições e histórico de leads.
+
+    - name: API Gateway
+      provider: AWS API Gateway
+      usage: Gerenciamento de chamadas de API entre os serviços internos e externos.
+
+    - name: Security & Compliance
+      features:
+        - Criptografia de dados em trânsito e em repouso
+        - Armazenamento seguro de gravações de chamadas
+        - Conformidade com LGPD e outras regulamentações
+
