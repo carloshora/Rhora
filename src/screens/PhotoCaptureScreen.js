@@ -78,7 +78,7 @@ export default function PhotoCaptureScreen({ navigation, route }) {
 
     try {
       const config = await loadConfig();
-      const apiKey = config.removeBgApiKey || '';
+      const apiKey = config.removeBgApiKey || process.env.EXPO_PUBLIC_REMOVEBG_API_KEY || '';
 
       if (!apiKey) {
         Alert.alert(
