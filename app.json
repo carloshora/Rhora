@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "Figurinha Copa",
+    "slug": "figurinha-copa-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "android": {
+      "permissions": [
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.CAMERA"
+      ],
+      "package": "com.figurinhacopa.app"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.figurinhacopa.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Necessário para tirar sua foto de jogador.",
+        "NSPhotoLibraryUsageDescription": "Necessário para escolher sua foto e salvar a figurinha.",
+        "NSPhotoLibraryAddUsageDescription": "Necessário para salvar a figurinha na sua galeria."
+      }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Precisamos acessar sua galeria para escolher sua foto.",
+          "cameraPermission": "Precisamos da câmera para tirar sua foto de jogador."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Precisamos acessar sua galeria para salvar a figurinha.",
+          "savePhotosPermission": "Precisamos salvar a figurinha na sua galeria.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ]
+    ]
+  }
+}
